@@ -10,16 +10,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-$host = "localhost";
-$db_name = "db_pembelajaran";
+$host = "mysql.railway.internal";
+$db_name = "railway";
 $username = "root";
-$password = "";
+$password = "SRhQQVbXdGbUUCkqvcrqmkKyTkHFYEem";
+$port = "3306";
 
 try {
-    $conn = new PDO("mysql:host=" . $host . ";dbname=" . $db_name, $username, $password);
+    $conn = new PDO(
+        "mysql:host=$host;port=$port;dbname=$db_name",
+        $username,
+        $password
+    );
+
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 } catch(PDOException $exception) {
-    echo json_encode(["status" => "error", "message" => "Connection error: " . $exception->getMessage()]);
+    echo json_encode([
+        "status" => "error",
+        "message" => "Connection error: " . $exception->getMessage()
+    ]);
     exit;
 }
 ?>
